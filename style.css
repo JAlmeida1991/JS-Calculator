@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+}
+
+.num {
+    border: 2.5px solid black;
+    display: inline-block;
+    /* width: auto; */
+}
+
+#clear {
+    border: 2.5px solid black;
+    display: inline-block;
+    /* width: auto; */
+    grid-area: clear;
+}
+
+#answer {
+    border: 2.5px solid black;
+    display: inline-block;
+    /* width: auto; */
+    grid-area: answer;
+}
+
+#screen {
+    /* width: 90.5vw;
+    height: 10vh; */
+    width: auto;
+    background-color: gray;
+    grid-area: screen;
+    border-radius: 10px;
+}
+
+.calulator {
+    border: black solid 2.5px;
+    height: 500px;
+    width: 500px;
+    margin: 10vh auto;
+    padding: 25px;
+    border-radius: 25px;
+    background-color: silver;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 5px 5px;
+    grid-template-areas: "clear screen screen screen" "seven eight nine multiply" "four five six divide" "one two three subtract" "zero dot add answer";
+}
+
+.one {
+    grid-area: one;
+}
+
+.two {
+    grid-area: two;
+}
+
+.three {
+    grid-area: three;
+}
+
+.four {
+    grid-area: four;
+}
+
+.five {
+    grid-area: five;
+}
+
+.six {
+    grid-area: six;
+}
+
+.seven {
+    grid-area: seven;
+}
+
+.eight {
+    grid-area: eight;
+}
+
+.nine {
+    grid-area: nine;
+}
+
+.dot {
+    grid-area: dot;
+}
+
+.add {
+    grid-area: add;
+}
+
+.subtract {
+    grid-area: subtract;
+}
+
+.divide {
+    grid-area: divide;
+}
+
+.multiply {
+    grid-area: multiply;
+}
+
+button:hover,
+button:active {
+    color: black;
+    background: white;
+}
+
+button {
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+}
