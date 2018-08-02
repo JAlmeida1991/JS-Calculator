@@ -20,25 +20,31 @@ num.forEach(num => {
         if (arr.length === 1 && arr[0] === sum) {
             arr = [0];
             properNumber(key);
+            screen.textContent = currentNum.num;
         } else {
             properNumber(key);
+            screen.textContent = currentNum.num;
         }
     })
 });
 
 add.addEventListener("click", function (e) {
     opperator("+");
+    screen.textContent = "+";
 });
 
 subtract.addEventListener("click", function (e) {
     opperator("-");
+    screen.textContent = "-";
 });
 
 divide.addEventListener("click", function (e) {
     opperator("/");
+    screen.textContent = "/";
 });
 multiply.addEventListener("click", function (e) {
     opperator("*");
+    screen.textContent = "*";
 });
 
 answer.addEventListener("click", function () {
@@ -47,6 +53,7 @@ answer.addEventListener("click", function () {
     sum = (eval(arr.join("")));
     arr = [sum];
     console.log(sum);
+    screen.textContent = sum;
     currentNum.num = "";
 })
 
@@ -73,8 +80,6 @@ function properNumber(key) {
 }
 
 function opperator(opperator) {
-
-
     if (checkPreviousOpperator() && !currentNum.num) {
         arr.pop();
         arr.push(opperator);
@@ -102,6 +107,6 @@ function opperator(opperator) {
 
 function divideByZero() {
     if (arr.join("").indexOf("/0") > -1) {
-        return console.log("You can't divide by zero!");
+        console.log("You can't divide by zero!");
     }
 }
