@@ -1,44 +1,3 @@
-// const num = document.querySelectorAll(".num");
-// const answer = document.querySelector("#answer");
-// const clear = document.querySelector("#clear");
-// const screen = document.querySelector("#screen");
-// // console.log(num);
-
-// let arr = [];
-
-// for (let i = 0; i < num.length; i++) {
-//     num[i].addEventListener("click", function (e) {
-//         // console.log(this.textContent);
-//         if (!((this.textContent === ".") && (arr[arr.length - 1] === "."))) {
-//             arr.push(this.textContent);
-//             console.log(arr);
-//             screen.textContent = arr.join("");
-//         }
-//     })
-// }
-
-// function doMath() {
-//     // Needed in order to turn array into string
-//     // eval will evaluate the code
-//     return eval(arr.join(""));
-// }
-
-// answer.addEventListener("click", function () {
-//     // Needed since if arr is empty will return undefined
-//     if (arr.length === 0) {
-//         // return console.log(0);
-//         screen.textContent = 0;
-//     }
-//     screen.textContent = doMath();
-// });
-
-// clear.addEventListener("click", function () {
-//     arr = [];
-//     screen.textContent = 0;
-// })
-
-
-// V2:
 const num = document.querySelectorAll(".num");
 const answer = document.querySelector("#answer");
 const clear = document.querySelector("#clear");
@@ -47,142 +6,117 @@ const add = document.querySelector("#add");
 const subtract = document.querySelector("#subtract");
 const divide = document.querySelector("#divide");
 const multiply = document.querySelector("#multiply");
-// // console.log(num);
+const currentNum = {
+    num: ""
+};
 
+let sum = 0;
 let arr = [];
-let number = "";
-// num.indexOf(".") === - 1 add "." (does not contain ".") else do not add
-// push num to arr if used opperator && declare num as ""
+// let arr = [0];
 
 
-for (let i = 0; i < num.length; i++) {
-    num[i].addEventListener("click", function (e) {
-        let key = e.target.textContent;
-        properNumber(key);
+num.forEach(num => {
+    num.addEventListener("click", function (e) {
+        let key = this.textContent;
+        if (arr.length === 1 && arr[0] === sum) {
+            arr = [];
+            properNumber(key);
+            screen.textContent = currentNum.num;
+        } else {
+            properNumber(key);
+            screen.textContent = currentNum.num;
+        }
     })
+});
 
-}
+add.addEventListener("click", function (e) {
+    addZeroToBeginning();
+    opperator("+");
+    screen.textContent = "+";
+});
 
-function properNumber(key) {
-    if (key === "." && number.indexOf(".") === -1) {
-        number += key;
-        // console.log(key);
-        console.log(number);
-    } else if (key !== ".") {
-        number += key;
-        // console.log(key);
-        console.log(number);
-    }
-    return number;
-}
+subtract.addEventListener("click", function (e) {
+    addZeroToBeginning();
+    opperator("-");
+    screen.textContent = "-";
+});
 
+divide.addEventListener("click", function (e) {
+    addZeroToBeginning();
+    opperator("/");
+    screen.textContent = "/";
+});
+multiply.addEventListener("click", function (e) {
+    addZeroToBeginning();
+    opperator("*");
+    screen.textContent = "*";
+});
 
+answer.addEventListener("click", function () {
+    arr.push(currentNum.num);
+    // divideByZero();
+    sum = (eval(arr.join("")));
+    arr = [sum];
 
-
+    console.log(sum);
+    screen.textContent = sum;
+    currentNum.num = "";
+})
 
 
 
 function checkPreviousOpperator() {
-    return arr[arr.length - 1] === "+" || arr[arr.length - 1] === "+" || arr[arr.length - 1] === "+" || arr[arr.length - 1] === "+"
-}
-
-function nextOpperator() {
-    return number[0] === "+" || number[0] === "/" || number[0] === "*" || number[0] === "*"
+    return typeof arr[arr.length - 1] !== "number";
+    // return arr[arr.length - 1] === "+" || arr[arr.length - 1] === "/" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "-"
 }
 
 
 
-// Need to fix bug that deletes opperator after using "="
+// NUMBER MUST NOT HAVE MORE THAN ONE DECIMAL
+function properNumber(key) {
+    // IF KEY IS . NEED TO CHECK IF NUMBER ALREADY HAS .
+    if (key === "." && currentNum.num.indexOf(".") === -1) {
+        currentNum.num += key;
+        console.log(currentNum.num);
+        // A SECOND . WILL NEVER PUT THROUGH    
+    } else if (key !== ".") {
+        currentNum.num += key;
+        console.log(currentNum.num);
+    }
+    return currentNum.num;
+}
 
-add.addEventListener("click", function (e) {
-    // && number[0] === "+" || number[0] === "/" || number[0] === "*" || number[0] === "*"
-    if (checkPreviousOpperator() || nextOpperator()) {
+function opperator(opperator) {
+    if (checkPreviousOpperator() && !currentNum.num) {
         arr.pop();
-        arr.push(number + "+");
+        arr.push(opperator);
         console.log(arr);
-        number = "";
-    } else if (!isNaN(Number(arr[arr.length - 1]))) {
-        arr.push("+");
-        number = "";
-        console.log(arr);
+    } else if (arr[arr.length - 1] === "" && !currentNum.num) {
+        arr.pop();
+    } else {
+        // CURRENTNUM NEEDS TO BE PLACED BEFORE OPPERATOR IF IT HAS A VALUE
+        if (currentNum.num) {
+            arr.push(currentNum.num);
+            arr.push(opperator);
+            currentNum.num = "";
+            console.log(arr);
+        }
+        // NEEDED IF PLANNING TO ADD TO SUM SINCE CURRENTNUM IS FALSY IF USED =
+        else if (!currentNum.num) {
+            arr.push(opperator);
+            // arr.push(currentNum.num);
+            currentNum.num = "";
+            console.log(arr);
+
+        }
     }
-    // Need to refactor
-    else if ((arr[arr.length - 1] - 1 !== "+") || (arr[arr.length - 1] - 1 !== "-") || (arr[arr.length - 1] - 1 !== "/") || (arr[arr.length - 1] - 1 !== "*")) {
-        arr.push(number + "+");
-        console.log(arr);
-        number = "";
-    }
-});
-
-// subtract.addEventListener("click", function (e) {
-//     if (checkPreviousOpperator() || nextOpperator()) {
-//         arr.pop();
-//         arr.push(number);
-//         arr.push("-");
-//         console.log(arr);
-//         number = "";
-//     } else if ((arr[arr.length - 1] - 1 !== "+") || (arr[arr.length - 1] - 1 !== "-") || (arr[arr.length - 1] - 1 !== "/") || (arr[arr.length - 1] - 1 !== "*")) {
-//         arr.push(number);
-//         arr.push("-");
-//         console.log(arr);
-//         number = "";
-//     }
-// });
-
-// multiply.addEventListener("click", function (e) {
-//     if (checkPreviousOpperator() || nextOpperator()) {
-//         arr.pop();
-//         arr.push(number);
-//         arr.push("*");
-//         console.log(arr);
-//         number = "";
-//     } else if ((arr[arr.length - 1] - 1 !== "+") || (arr[arr.length - 1] - 1 !== "-") || (arr[arr.length - 1] - 1 !== "/") || (arr[arr.length - 1] - 1 !== "*")) {
-//         arr.push(number);
-//         arr.push("*");
-//         console.log(arr);
-//         number = "";
-//     }
-// });
-
-// divide.addEventListener("click", function (e) {
-//     if (checkPreviousOpperator() || nextOpperator()) {
-//         arr.pop();
-//         arr.push(number);
-//         arr.push("/");
-//         console.log(arr);
-//         number = "";
-//     } else if ((arr[arr.length - 1] - 1 !== "+") || (arr[arr.length - 1] - 1 !== "-") || (arr[arr.length - 1] - 1 !== "/") || (arr[arr.length - 1] - 1 !== "*")) {
-//         arr.push(number);
-//         arr.push("/");
-//         console.log(arr);
-//         number = "";
-//     }
-// });
-
-
-
-
-function doMath() {
-    // Needed in order to turn array into string
-    // eval will evaluate the code
-    arr.push(number);
-    // if (arr[arr.length] - 1 === "+") {
-    //     arr.pop();
-    // }
-    console.log(arr.join(""));
-    return eval(arr.join(""));
 }
 
-answer.addEventListener("click", function () {
-    // Needed since if arr is empty will return undefined
-    if (arr.length === 0) {
-        // return console.log(0);
-        screen.textContent = 0;
+// NEEDED IF USER CHOOSES TO START ARRAY WITH OPERATOR.
+// CANNOT INITIALLY SET ARRAY AT 0 SINCE EVAL WILL NOT PRODUCE DESIRED RESULTS
+// I.E. eval([0333].join("")) IS 219 NOT 333
+function addZeroToBeginning() {
+    if (arr.length === 0 && currentNum.num === "") {
+        arr.push(0);
     }
-    screen.textContent = doMath();
-});
-
-clear.addEventListener("click", function () {
-    arr = [];
-    screen.textContent = 0;
-})
+}

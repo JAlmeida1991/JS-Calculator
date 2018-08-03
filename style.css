@@ -8,7 +8,6 @@ html {
     font-size: 62.5%;
 }
 
-
 .num {
     border: 2.5px solid black;
     /* width: auto; */
@@ -23,13 +22,13 @@ html {
 #answer {
     /* width: auto; */
     grid-area: answer;
-    
 }
 
 #screen {
     /* width: 90.5vw;
     height: 10vh; */
     max-width: 33rem;
+    min-height: 5rem;
     overflow: hidden;
     background-color: gray;
     grid-area: screen;
@@ -47,20 +46,16 @@ html {
     margin: 10vh auto;
     padding: 25px;
     border-radius: 25px;
-    background-color:#2c3e50;
+    background-color: #2c3e50;
     display: grid;
     grid-gap: 5px 5px;
-    grid-template-areas: 
-    "screen screen screen add" 
-    "seven eight nine multiply" 
-    "four five six divide" 
-    "one two three subtract" 
-    "zero dot clear answer";
+    grid-template-areas: "screen screen screen add" "seven eight nine multiply" "four five six divide" "one two three subtract" "zero dot clear answer";
 }
 
 .zero {
     grid-area: zero;
 }
+
 .one {
     grid-area: one;
 }
@@ -126,7 +121,7 @@ html {
 .operator:hover,
 .operator:active {
     color: #333;
-    background:#f39c12;
+    background: #f39c12;
 }
 
 button {
