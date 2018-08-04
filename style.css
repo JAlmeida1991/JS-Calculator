@@ -28,7 +28,8 @@ html {
     /* width: 90.5vw;
     height: 10vh; */
     max-width: 33rem;
-    min-height: 5rem;
+    /* ONLY NEEDED IF NOTHING IS DISPLAYED ON SCREEN: */
+    /* min-height: 5rem; */
     overflow: hidden;
     background-color: gray;
     grid-area: screen;
