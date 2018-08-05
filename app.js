@@ -6,18 +6,41 @@ const add = document.querySelector("#add");
 const subtract = document.querySelector("#subtract");
 const divide = document.querySelector("#divide");
 const multiply = document.querySelector("#multiply");
+const keys = {
+    nums: [
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '.'
+    ],
+    opperator: [
+        '+',
+        '-',
+        '/',
+        '*'
+    ],
+    equal: [
+        '=',
+        'Enter'
+    ],
+    clear: [
+        'c',
+        'C'
+    ]
+}
 
 let currentNum;
 let sum;
 let arr;
 
 init();
-
-// const currentNum = {
-//     num: ""
-// };
-// let arr = [0];
-
 
 num.forEach(num => {
     num.addEventListener("click", function (e) {
@@ -58,6 +81,9 @@ multiply.addEventListener("click", function (e) {
 });
 
 answer.addEventListener("click", function () {
+    if (!currentNum && arr.length === 0) {
+        return;
+    }
     arr.push(currentNum);
     sum = (eval(arr.join("")));
     arr = [sum];
@@ -132,30 +158,35 @@ function addZeroToBeginning() {
     }
 }
 
-
-// function opperator(opperator) {
-//     if (checkPreviousOpperator() && !currentNum.num) {
-//         arr.pop();
-//         arr.push(opperator);
-//         console.log(arr);
-//     }
-//     // else if (arr[arr.length - 1] === "" && !currentNum.num) {
-//     //     arr.pop();
-//     // } 
-//     // else {
-//     // CURRENTNUM NEEDS TO BE PLACED BEFORE OPPERATOR IF IT HAS A VALUE
-//     else if (currentNum.num) {
-//         arr.push(currentNum.num);
-//         arr.push(opperator);
-//         currentNum.num = "";
-//         console.log(arr);
-//     }
-//     // NEEDED IF PLANNING TO ADD TO SUM SINCE CURRENTNUM IS FALSY IF USED =
-//     else if (!currentNum.num) {
-//         arr.push(opperator);
-//         // arr.push(currentNum.num);
-//         currentNum.num = "";
-//         console.log(arr);
-//     }
-//     // }
-// }
+document.addEventListener('keypress', function (e) {
+    console.log(e.key);
+    if (keys.nums.indexOf(e.key) >= 0) {
+        // this is set to the document object must use e.key instead of this.key
+        // console.log(this);
+        let key = e.key;
+        if (arr.length === 1 && arr[0] === sum) {
+            arr = [];
+            properNumber(key);
+            screen.textContent = currentNum;
+        } else {
+            properNumber(key);
+            screen.textContent = currentNum;
+        }
+    } else if (keys.opperator.indexOf(e.key) >= 0) {
+        addZeroToBeginning();
+        opperator(e.key);
+        screen.textContent = e.key;
+    } else if (keys.equal.indexOf(e.key) >= 0) {
+        if (!currentNum && arr.length === 0) {
+            return;
+        }
+        arr.push(currentNum);
+        sum = (eval(arr.join("")));
+        arr = [sum];
+        console.log(sum);
+        screen.textContent = sum;
+        currentNum = "";
+    } else if (keys.clear.indexOf(e.key) >= 0) {
+        init();
+    }
+});
