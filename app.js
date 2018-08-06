@@ -45,8 +45,8 @@ init();
 num.forEach(num => {
     num.addEventListener("click", function (e) {
         let key = this.textContent;
+        preventMultipleZeroesBeforePeriod(key);
         if (arr.length === 1 && arr[0] === sum) {
-            // arr = [];
             arr = [];
             properNumber(key);
             screen.textContent = currentNum;
@@ -54,7 +54,7 @@ num.forEach(num => {
             properNumber(key);
             screen.textContent = currentNum;
         }
-    })
+    });
 });
 
 add.addEventListener("click", function (e) {
@@ -90,11 +90,57 @@ answer.addEventListener("click", function () {
     console.log(sum);
     screen.textContent = sum;
     currentNum = "";
-})
+});
 
 
 clear.addEventListener("click", function () {
     init();
+});
+
+
+document.addEventListener('keypress', function (e) {
+    console.log(e.key);
+
+    // KEY PRESS IS IN NUM ARRAY:
+    if (keys.nums.indexOf(e.key) >= 0) {
+        // this is set to the document object must use e.key instead of this.key
+        // console.log(this);
+        let key = e.key;
+        preventMultipleZeroesBeforePeriod(key);
+        if (arr.length === 1 && arr[0] === sum) {
+            arr = [];
+            properNumber(key);
+            screen.textContent = currentNum;
+        } else {
+            properNumber(key);
+            screen.textContent = currentNum;
+        }
+    }
+
+    // KEY PRESS IS IN OPERATOR ARRAY:
+    else if (keys.opperator.indexOf(e.key) >= 0) {
+        addZeroToBeginning();
+        opperator(e.key);
+        screen.textContent = e.key;
+    }
+
+    // KEY PRESS IS IN EQUAL ARRAY
+    else if (keys.equal.indexOf(e.key) >= 0) {
+        if (!currentNum && arr.length === 0) {
+            return;
+        }
+        arr.push(currentNum);
+        sum = (eval(arr.join("")));
+        arr = [sum];
+        console.log(sum);
+        screen.textContent = sum;
+        currentNum = "";
+    }
+
+    // KEY PRESS IS IN CLEAR ARRAY 
+    else if (keys.clear.indexOf(e.key) >= 0) {
+        init();
+    }
 });
 
 
@@ -146,7 +192,8 @@ function init() {
     currentNum = "";
     sum = 0;
     arr = [];
-    screen.textContent = 0;
+    screen.textContent = '0';
+    // screen.textContent = '';
 }
 
 // NEEDED IF USER CHOOSES TO START ARRAY WITH OPERATOR.
@@ -158,35 +205,21 @@ function addZeroToBeginning() {
     }
 }
 
-document.addEventListener('keypress', function (e) {
-    console.log(e.key);
-    if (keys.nums.indexOf(e.key) >= 0) {
-        // this is set to the document object must use e.key instead of this.key
-        // console.log(this);
-        let key = e.key;
-        if (arr.length === 1 && arr[0] === sum) {
-            arr = [];
-            properNumber(key);
-            screen.textContent = currentNum;
-        } else {
-            properNumber(key);
-            screen.textContent = currentNum;
-        }
-    } else if (keys.opperator.indexOf(e.key) >= 0) {
-        addZeroToBeginning();
-        opperator(e.key);
-        screen.textContent = e.key;
-    } else if (keys.equal.indexOf(e.key) >= 0) {
-        if (!currentNum && arr.length === 0) {
-            return;
-        }
-        arr.push(currentNum);
-        sum = (eval(arr.join("")));
-        arr = [sum];
-        console.log(sum);
-        screen.textContent = sum;
-        currentNum = "";
-    } else if (keys.clear.indexOf(e.key) >= 0) {
-        init();
+
+// This will prevent user from entering extra leading zeroes
+// 
+function preventMultipleZeroesBeforePeriod(key) {
+    if (currentNum === '0' && currentNum.length <= 1 && key !== '.') {
+        currentNum = '';
+        screen.textContent = '';
+        console.log(key);
     }
-});
+}
+
+
+// function preventMultipleZeroesBeforePeriod(key) {
+//     if (currentNum[0] !== '.' && currentNum === '0' && currentNum.length <= 1) {
+//         currentNum = '';
+//         screen.textContent = '';
+//     }
+// }
