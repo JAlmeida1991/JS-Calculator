@@ -6,11 +6,12 @@ const add = document.querySelector("#add");
 const subtract = document.querySelector("#subtract");
 const divide = document.querySelector("#divide");
 const multiply = document.querySelector("#multiply");
+const btns = document.querySelectorAll(".btn");
 const keys = {
   nums: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."],
   opperator: ["+", "-", "/", "*"],
-  equal: ["=", "Enter"],
-  clear: ["c", "C"]
+  equal: ["="],
+  clear: ["c"]
 };
 
 let currentNum;
@@ -23,13 +24,15 @@ num.forEach(num => {
   num.addEventListener("click", function(e) {
     let key = this.textContent;
     preventMultipleZeroesBeforePeriod(key);
+    // This will check if user does not want to use sum for arithmetic
+    // Only opperators can be added to the array... Normal integers are not added
     if (arr.length === 1 && arr[0] === sum) {
       arr = [];
       properNumber(key);
-      screen.textContent = currentNum;
+      displayScreen(currentNum);
     } else {
       properNumber(key);
-      screen.textContent = currentNum;
+      displayScreen(currentNum);
     }
   });
 });
@@ -37,24 +40,24 @@ num.forEach(num => {
 add.addEventListener("click", function(e) {
   addZeroToBeginning();
   opperator("+");
-  screen.textContent = "+";
+  displayScreen("+");
 });
 
 subtract.addEventListener("click", function(e) {
   addZeroToBeginning();
   opperator("-");
-  screen.textContent = "-";
+  displayScreen("-");
 });
 
 divide.addEventListener("click", function(e) {
   addZeroToBeginning();
   opperator("/");
-  screen.textContent = "/";
+  displayScreen("/");
 });
 multiply.addEventListener("click", function(e) {
   addZeroToBeginning();
   opperator("*");
-  screen.textContent = "*";
+  displayScreen("*");
 });
 
 answer.addEventListener("click", function() {
@@ -64,8 +67,7 @@ answer.addEventListener("click", function() {
   arr.push(currentNum);
   sum = eval(arr.join(""));
   arr = [sum];
-  console.log(sum);
-  screen.textContent = sum;
+  displayScreen(sum);
   currentNum = "";
 });
 
@@ -81,14 +83,16 @@ document.addEventListener("keypress", function(e) {
     // this is set to the document object must use e.key instead of this.key
     // console.log(this);
     let key = e.key;
+    console.log(key);
+    buttonUI(key, btns);
     preventMultipleZeroesBeforePeriod(key);
     if (arr.length === 1 && arr[0] === sum) {
       arr = [];
       properNumber(key);
-      screen.textContent = currentNum;
+      displayScreen(currentNum);
     } else {
       properNumber(key);
-      screen.textContent = currentNum;
+      displayScreen(currentNum);
     }
   }
 
@@ -96,7 +100,7 @@ document.addEventListener("keypress", function(e) {
   else if (keys.opperator.indexOf(e.key) >= 0) {
     addZeroToBeginning();
     opperator(e.key);
-    screen.textContent = e.key;
+    displayScreen(e.key);
   }
 
   // KEY PRESS IS IN EQUAL ARRAY
@@ -107,13 +111,14 @@ document.addEventListener("keypress", function(e) {
     arr.push(currentNum);
     sum = eval(arr.join(""));
     arr = [sum];
-    console.log(sum);
-    screen.textContent = sum;
+    displayScreen(sum);
     currentNum = "";
   }
 
   // KEY PRESS IS IN CLEAR ARRAY
   else if (keys.clear.indexOf(e.key) >= 0) {
+    const key = e.key;
+    buttonUI(key, btns);
     init();
   }
 });
@@ -128,11 +133,9 @@ function properNumber(key) {
   // IF KEY IS . NEED TO CHECK IF NUMBER ALREADY HAS .
   if (key === "." && currentNum.indexOf(".") === -1) {
     currentNum += key;
-    console.log(currentNum);
     // A SECOND . WILL NEVER PUT THROUGH
   } else if (key !== ".") {
     currentNum += key;
-    console.log(currentNum);
   }
   return currentNum;
 }
@@ -141,21 +144,17 @@ function opperator(opperator) {
   if (checkPreviousOpperator() && !currentNum) {
     arr.pop();
     arr.push(opperator);
-    console.log(arr);
   }
   // CURRENTNUM NEEDS TO BE PLACED BEFORE OPPERATOR IF IT HAS A VALUE
   else if (currentNum) {
     arr.push(currentNum);
     arr.push(opperator);
     currentNum = "";
-    console.log(arr);
   }
   // NEEDED IF PLANNING TO ADD TO SUM SINCE CURRENTNUM IS FALSY IF USED =
   else if (!currentNum) {
     arr.push(opperator);
-    // arr.push(currentNum);
     currentNum = "";
-    console.log(arr);
   }
 }
 
@@ -163,8 +162,7 @@ function init() {
   currentNum = "";
   sum = 0;
   arr = [];
-  screen.textContent = "0";
-  // screen.textContent = '';
+  displayScreen("0");
 }
 
 // NEEDED IF USER CHOOSES TO START ARRAY WITH OPERATOR.
@@ -177,18 +175,32 @@ function addZeroToBeginning() {
 }
 
 // This will prevent user from entering extra leading zeroes
-//
 function preventMultipleZeroesBeforePeriod(key) {
   if (currentNum === "0" && currentNum.length <= 1 && key !== ".") {
     currentNum = "";
-    screen.textContent = "";
-    console.log(key);
+    displayScreen("");
   }
 }
 
-// function preventMultipleZeroesBeforePeriod(key) {
-//     if (currentNum[0] !== '.' && currentNum === '0' && currentNum.length <= 1) {
-//         currentNum = '';
-//         screen.textContent = '';
-//     }
-// }
+function displayScreen(val) {
+  screen.textContent = val;
+}
+function buttonUI(key, btns) {
+  const btnArr = Array.from(btns).filter(function(element) {
+    return key === element.value;
+  });
+  // Destructuring in order to get value from btnArr
+  const [btnKey] = btnArr;
+  // Key will look like it is being pressed
+  btnKey.style.transform = "translateY(.2rem)";
+  btnKey.style.boxShadow = "0 0.2rem 0.2rem #333";
+  btnKey.style.color = "#fff";
+  btnKey.style.backgroundColor = "#333";
+  // after 1/4th a sceond, return orginal style
+  setTimeout(function() {
+    btnKey.style.transform = "translateY(0rem)";
+    btnKey.style.boxShadow = "none";
+    btnKey.style.color = "#000";
+    btnKey.style.backgroundColor = "#fff";
+  }, 250);
+}

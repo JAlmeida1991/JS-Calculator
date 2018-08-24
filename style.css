@@ -1,3 +1,5 @@
+*::before,
+*::after,
 * {
   box-sizing: border-box;
   margin: 0;
@@ -120,9 +122,11 @@ html {
   grid-area: multiply;
 }
 
+#clear:hover,
+#clear:active,
 .num:hover,
 .num:active {
-  color: white;
+  color: #fff;
   background: #333;
 }
 
@@ -139,9 +143,11 @@ html {
   font-size: 1.5rem;
   /* NEEDED IN ORDER TO PREVENT BUTTONS FROM EXPANDING IF NUMBER IS TOO LARGE */
   min-width: 10.75rem;
+  outline: none;
 }
 .btn:active {
   transform: translateY(0.2rem);
+  box-shadow: 0 0.2rem 0.2rem #333;
 }
 
 .operator {
