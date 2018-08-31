@@ -1,7 +1,8 @@
 *::before,
 *::after,
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -14,130 +15,46 @@ body {
   background-color: #eee;
 }
 
-.num {
-  border: 2.5px solid black;
-  /* width: auto; */
-}
-
-#clear {
-  border: 2.5px solid black;
-  /* width: auto; */
-  grid-area: clear;
-}
-
-#answer {
-  /* width: auto; */
-  grid-area: answer;
-}
-
-#screen {
-  /* width: 90.5vw;
-    height: 10vh; */
-  max-width: 33rem;
-  /* ONLY NEEDED IF NOTHING IS DISPLAYED ON SCREEN: */
-  /* min-height: 5rem; */
-  overflow: hidden;
-  background-color: gray;
-  grid-area: screen;
-  border-radius: 10px;
-  border: 2.5px solid black;
-  font-size: 2rem;
-  padding-top: 2rem;
-  padding-left: 2rem;
+.title {
+  margin-top: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
 }
 
 .calulator {
-  border: black solid 2.5px;
+  border: 2.5px solid #000;
   height: 50rem;
   width: 50rem;
   margin: 2rem auto;
   padding: 2.5rem;
   border-radius: 2.5rem;
   background-color: #2c3e50;
+  display: -ms-grid;
   display: grid;
   grid-gap: 5px 5px;
-  grid-template-rows: repeat(5, 1fr);
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "screen screen screen add"
-    "seven eight nine multiply"
-    "four five six divide"
-    "one two three subtract"
-    "zero dot clear answer";
+  -ms-grid-rows: (1fr)[5];
+      grid-template-rows: repeat(5, 1fr);
+  -ms-grid-columns: (1fr)[4];
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-areas: "screen screen screen add" "seven eight nine multiply" "four five six divide" "one two three subtract" "zero dot clear answer";
 }
 
-.zero {
-  grid-area: zero;
+@media only screen and (max-width: 40em) {
+  .calulator {
+    height: 45rem;
+    width: 40rem;
+    padding: 2rem;
+    grid-gap: 0.4rem 0.4rem;
+  }
 }
 
-.one {
-  grid-area: one;
-}
-
-.two {
-  grid-area: two;
-}
-
-.three {
-  grid-area: three;
-}
-
-.four {
-  grid-area: four;
-}
-
-.five {
-  grid-area: five;
-}
-
-.six {
-  grid-area: six;
-}
-
-.seven {
-  grid-area: seven;
-}
-
-.eight {
-  grid-area: eight;
-}
-
-.nine {
-  grid-area: nine;
-}
-
-.dot {
-  grid-area: dot;
-}
-
-#add {
-  grid-area: add;
-}
-
-#subtract {
-  grid-area: subtract;
-}
-
-#divide {
-  grid-area: divide;
-}
-
-#multiply {
-  grid-area: multiply;
-}
-
-#clear:hover,
-#clear:active,
-.num:hover,
-.num:active {
-  color: #fff;
-  background: #333;
-}
-
-.operator:hover,
-.operator:active {
-  color: #333;
-  background: #f39c12;
+@media only screen and (max-width: 30em) {
+  .calulator {
+    height: 40rem;
+    width: 32rem;
+    padding: 1.8rem;
+    grid-gap: 0.3rem 0.3rem;
+  }
 }
 
 .btn {
@@ -149,29 +66,15 @@ body {
   min-width: 10.75rem;
   outline: none;
 }
+
 .btn:active {
-  transform: translateY(0.2rem);
-  box-shadow: 0 0.2rem 0.2rem #333;
-}
-
-.operator {
-  background-color: #e67e22;
-  border: 2.5px solid black;
-}
-
-.title {
-  margin-top: 2rem;
-  text-align: center;
+  -webkit-transform: translateY(0.2rem);
+          transform: translateY(0.2rem);
+  -webkit-box-shadow: 0 0.2rem 0.2rem #333;
+          box-shadow: 0 0.2rem 0.2rem #333;
 }
 
 @media only screen and (max-width: 40em) {
-  .calulator {
-    height: 45rem;
-    width: 40rem;
-    padding: 2rem;
-    grid-gap: 0.4rem 0.4rem;
-  }
-
   .btn {
     font-size: 1.4rem;
     min-width: 8.5rem;
@@ -179,15 +82,157 @@ body {
 }
 
 @media only screen and (max-width: 30em) {
-  .calulator {
-    height: 40rem;
-    width: 32rem;
-    padding: 1.8rem;
-    grid-gap: 0.3rem 0.3rem;
-  }
-
   .btn {
     font-size: 1.2rem;
     min-width: 6.5rem;
   }
 }
+
+#answer {
+  -ms-grid-row: 5;
+  -ms-grid-column: 4;
+  grid-area: answer;
+}
+
+#screen {
+  /* width: 90.5vw;
+      height: 10vh; */
+  max-width: 33rem;
+  /* ONLY NEEDED IF NOTHING IS DISPLAYED ON SCREEN: */
+  /* min-height: 5rem; */
+  overflow: hidden;
+  background-color: gray;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-area: screen;
+  border-radius: 10px;
+  border: 2.5px solid #000;
+  font-size: 2rem;
+  padding-top: 2rem;
+  padding-left: 2rem;
+}
+
+.operator {
+  background-color: #e67e22;
+  border: 2.5px solid #000;
+}
+
+.operator:hover, .operator:active {
+  color: #333;
+  background: #f39c12;
+}
+
+#add {
+  -ms-grid-row: 1;
+  -ms-grid-column: 4;
+  grid-area: add;
+}
+
+#subtract {
+  -ms-grid-row: 4;
+  -ms-grid-column: 4;
+  grid-area: subtract;
+}
+
+#divide {
+  -ms-grid-row: 3;
+  -ms-grid-column: 4;
+  grid-area: divide;
+}
+
+#multiply {
+  -ms-grid-row: 2;
+  -ms-grid-column: 4;
+  grid-area: multiply;
+}
+
+#clear {
+  border: 2.5px solid #000;
+  background-color: #e1eef6;
+  -ms-grid-row: 5;
+  -ms-grid-column: 3;
+  grid-area: clear;
+}
+
+#clear:hover, #clear:active {
+  color: #000;
+  background-color: #7f9eb2;
+}
+
+.num {
+  border: 2.5px solid #000;
+  background-color: #e1eef6;
+}
+
+.num:hover, .num:active {
+  color: black;
+  background-color: #7f9eb2;
+}
+
+.zero {
+  -ms-grid-row: 5;
+  -ms-grid-column: 1;
+  grid-area: zero;
+}
+
+.one {
+  -ms-grid-row: 4;
+  -ms-grid-column: 1;
+  grid-area: one;
+}
+
+.two {
+  -ms-grid-row: 4;
+  -ms-grid-column: 2;
+  grid-area: two;
+}
+
+.three {
+  -ms-grid-row: 4;
+  -ms-grid-column: 3;
+  grid-area: three;
+}
+
+.four {
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  grid-area: four;
+}
+
+.five {
+  -ms-grid-row: 3;
+  -ms-grid-column: 2;
+  grid-area: five;
+}
+
+.six {
+  -ms-grid-row: 3;
+  -ms-grid-column: 3;
+  grid-area: six;
+}
+
+.seven {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: seven;
+}
+
+.eight {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: eight;
+}
+
+.nine {
+  -ms-grid-row: 2;
+  -ms-grid-column: 3;
+  grid-area: nine;
+}
+
+.dot {
+  -ms-grid-row: 5;
+  -ms-grid-column: 2;
+  grid-area: dot;
+}
+/*# sourceMappingURL=style.css.map */

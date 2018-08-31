@@ -37,6 +37,8 @@ num.forEach(num => {
   });
 });
 
+// Operator Logic:
+
 add.addEventListener("click", function(e) {
   addZeroToBeginning();
   opperator("+");
@@ -98,7 +100,6 @@ document.addEventListener("keypress", function(e) {
     opperator(e.key);
     displayScreen(e.key);
   }
-
   // KEY PRESS IS IN EQUAL ARRAY
   else if (keys.equal.indexOf(e.key) >= 0) {
     buttonUI(key, btns);
@@ -111,7 +112,6 @@ document.addEventListener("keypress", function(e) {
     displayScreen(sum);
     currentNum = "";
   }
-
   // KEY PRESS IS IN CLEAR ARRAY
   else if (keys.clear.indexOf(e.key) >= 0) {
     const key = e.key;
@@ -196,14 +196,12 @@ function buttonUI(key, btns) {
 
   if (!keys.opperator.includes(key) && !keys.equal.includes(key)) {
     // Key will look like it is being pressed
-    btnKey.style.color = "#fff";
-    btnKey.style.backgroundColor = "#333";
+    btnKey.style.backgroundColor = "#7f9eb2";
     // after 1/4th a sceond, return orginal style
     setTimeout(function() {
       btnKey.style.transform = "translateY(0rem)";
       btnKey.style.boxShadow = "none";
-      btnKey.style.color = "#000";
-      btnKey.style.backgroundColor = "#fff";
+      btnKey.style.backgroundColor = "#e1eef6";
     }, 250);
     // Else apply the following styles for key if it is an opperator or equal
   } else {
