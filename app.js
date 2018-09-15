@@ -20,6 +20,7 @@ let arr;
 
 init();
 
+// Need to use function keyword since () => has no lexical this
 num.forEach(num => {
   num.addEventListener("click", function(e) {
     let key = this.textContent;
@@ -39,30 +40,30 @@ num.forEach(num => {
 
 // Operator Logic:
 
-add.addEventListener("click", function(e) {
+add.addEventListener("click", e => {
   addZeroToBeginning();
   opperator("+");
   displayScreen("+");
 });
 
-subtract.addEventListener("click", function(e) {
+subtract.addEventListener("click", e => {
   addZeroToBeginning();
   opperator("-");
   displayScreen("-");
 });
 
-divide.addEventListener("click", function(e) {
+divide.addEventListener("click", e => {
   addZeroToBeginning();
   opperator("/");
   displayScreen("/");
 });
-multiply.addEventListener("click", function(e) {
+multiply.addEventListener("click", e => {
   addZeroToBeginning();
   opperator("*");
   displayScreen("*");
 });
 
-answer.addEventListener("click", function() {
+answer.addEventListener("click", e => {
   if (!currentNum && arr.length === 0) {
     return;
   }
@@ -75,7 +76,7 @@ answer.addEventListener("click", function() {
 
 clear.addEventListener("click", init);
 
-document.addEventListener("keypress", function(e) {
+document.addEventListener("keypress", e => {
   console.log(e.key);
   let key = e.key;
   // KEY PRESS IS IN NUM ARRAY:
@@ -191,29 +192,21 @@ function buttonUI(key, btns) {
   // Destructuring in order to get value from btnArr
   const [btnKey] = btnArr;
   // If the key is not an opperator or equal, apply the following styles
-  btnKey.style.transform = "translateY(.2rem)";
-  btnKey.style.boxShadow = "0 0.2rem 0.2rem #333";
-
   if (!keys.opperator.includes(key) && !keys.equal.includes(key)) {
     // Key will look like it is being pressed
-    btnKey.style.backgroundColor = "#7f9eb2";
     // after 1/4th a sceond, return orginal style
-    setTimeout(function() {
-      btnKey.style.transform = "translateY(0rem)";
-      btnKey.style.boxShadow = "none";
-      btnKey.style.backgroundColor = "#e1eef6";
+    btnKey.classList.add("toggleNumber-js");
+
+    setTimeout(() => {
+      btnKey.classList.remove("toggleNumber-js");
     }, 250);
     // Else apply the following styles for key if it is an opperator or equal
   } else {
     // Key will look like it is being pressed
-    btnKey.style.color = "#333";
-    btnKey.style.backgroundColor = "#f39c12";
+    btnKey.classList.add("toggleOperator-js");
     // after 1/4th a sceond, return orginal style
-    setTimeout(function() {
-      btnKey.style.transform = "translateY(0rem)";
-      btnKey.style.boxShadow = "none";
-      // btnKey.style.color = "#e67e22";
-      btnKey.style.backgroundColor = "#e67e22";
+    setTimeout(() => {
+      btnKey.classList.remove("toggleOperator-js");
     }, 250);
   }
 }
