@@ -1,0 +1,21 @@
+$operatorColor: #e67e22;
+$numColor: #e1eef6;
+$activeNumColor: #7f9eb2;
+$activeOperatorColor: #f39c12;
+
+*::before,
+*::after,
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #eee;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

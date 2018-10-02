@@ -13,6 +13,7 @@
 <body>
     <h1 class="title">JavaScript Calculator</h1>
     <div class="calulator">
+        <div class="screen"></div>
         <button class="num one btn" value="1">1</button>
         <button class="num two btn" value="2">2</button>
         <button class="num three btn" value="3">3</button>
@@ -25,13 +26,12 @@
         <button class="num zero btn" value="0">0</button>
         <button class="num dot btn" value=".">.</button>
         <!-- Took out class of num + opperation and just made it an ID -->
-        <button id="add" class="operator btn" value="+">+</button>
-        <button id="subtract" class="operator btn" value="-">-</button>
-        <button id="divide" class="operator btn" value="/">/</button>
-        <button id="multiply" class="operator btn" value="*">*</button>
-        <button id="answer" class="operator btn" value="=">=</button>
-        <button id="clear" class="btn" value="c">AC</button>
-        <div id="screen"></div>
+        <button class="operator btn add" value="+">+</button>
+        <button class="operator btn subtract" value="-">-</button>
+        <button class="operator btn divide" value="/">/</button>
+        <button class="operator btn multiply" value="*">*</button>
+        <button class="operator btn answer" value="=">=</button>
+        <button class="btn clear" value="c">AC</button>
     </div>
     <script src="app.js"></script>
 </body>

@@ -89,7 +89,7 @@ body {
   }
 }
 
-#screen {
+.screen {
   max-width: 33rem;
   overflow: hidden;
   background-color: gray;
@@ -106,13 +106,13 @@ body {
 }
 
 @media only screen and (max-width: 40em) {
-  #screen {
+  .screen {
     padding-top: 2rem;
   }
 }
 
 @media only screen and (max-width: 30em) {
-  #screen {
+  .screen {
     padding-top: 1.5rem;
   }
 }
@@ -137,7 +137,7 @@ body {
   background-color: #7f9eb2;
 }
 
-#clear {
+.clear {
   border: 2.5px solid #000;
   background-color: #e1eef6;
   -ms-grid-row: 5;
@@ -145,36 +145,36 @@ body {
   grid-area: clear;
 }
 
-#clear:hover, #clear:active {
+.clear:hover, .clear:active {
   color: #000;
   background-color: #7f9eb2;
 }
 
-#add {
+.add {
   -ms-grid-row: 1;
   -ms-grid-column: 4;
   grid-area: add;
 }
 
-#subtract {
+.subtract {
   -ms-grid-row: 4;
   -ms-grid-column: 4;
   grid-area: subtract;
 }
 
-#divide {
+.divide {
   -ms-grid-row: 3;
   -ms-grid-column: 4;
   grid-area: divide;
 }
 
-#multiply {
+.multiply {
   -ms-grid-row: 2;
   -ms-grid-column: 4;
   grid-area: multiply;
 }
 
-#answer {
+.answer {
   -ms-grid-row: 5;
   -ms-grid-column: 4;
   grid-area: answer;
