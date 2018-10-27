@@ -6,5 +6,5 @@ Current draft can be found at https://jalmeida1991.github.io/JS-Calculator/
 
 - All digits /\d/ match their keyboard counterparts
 - All operators /[+-*\/=]/ match their keyboard counterparts
-- Decimal /\./ matches keybord counterpart
+- Decimal /\./ matches keyboard counterpart
 - AC button = c key
