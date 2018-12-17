@@ -1,6 +1,6 @@
 # JavaScript Calculator
 
-Current draft can be found at https://jalmeida1991.github.io/JS-Calculator/
+Current draft can be found at https://jalmeida-calculator.netlify.com
 
 **Keyboard Support Included**
 

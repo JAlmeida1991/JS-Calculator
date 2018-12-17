@@ -1,15 +1,3 @@
-@import "base";
-
-@mixin blackBorder {
-  border: 2.5px solid #000;
-}
-
-.title {
-  margin-top: 2rem;
-  font-size: 2.5rem;
-  text-align: center;
-}
-
 .calulator {
   @include blackBorder;
   height: 50rem;
@@ -41,31 +29,6 @@
     width: 32rem;
     padding: 1.8rem;
     grid-gap: 0.3rem 0.3rem;
-  }
-}
-
-.btn {
-  color: #000;
-  border-radius: 2.5rem;
-  cursor: pointer;
-  font-size: 2rem;
-  /* NEEDED IN ORDER TO PREVENT BUTTONS FROM EXPANDING IF NUMBER IS TOO LARGE */
-  min-width: 10.75rem;
-  outline: none;
-
-  &:active {
-    transform: translateY(0.2rem);
-    box-shadow: 0 0.2rem 0.2rem #333;
-  }
-
-  @media only screen and (max-width: 40em) {
-    font-size: 1.8rem;
-    min-width: 8.5rem;
-  }
-
-  @media only screen and (max-width: 30em) {
-    font-size: 1.6rem;
-    min-width: 6.5rem;
   }
 }
 
@@ -187,19 +150,4 @@
 
 .dot {
   grid-area: dot;
-}
-
-// JS Classes
-
-.toggleNumber-js {
-  transform: translateY(0.2rem);
-  box-shadow: 0 0.2rem 0.2rem #333;
-  background-color: #7f9eb2;
-}
-
-.toggleOperator-js {
-  transform: translateY(0.2rem);
-  box-shadow: 0 0.2rem 0.2rem #333;
-  color: #333;
-  background-color: #f39c12;
 }

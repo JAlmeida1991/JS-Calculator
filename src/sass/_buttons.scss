@@ -1,0 +1,24 @@
+.btn {
+  color: #000;
+  border-radius: 2.5rem;
+  cursor: pointer;
+  font-size: 2rem;
+  /* NEEDED IN ORDER TO PREVENT BUTTONS FROM EXPANDING IF NUMBER IS TOO LARGE */
+  min-width: 10.75rem;
+  outline: none;
+
+  &:active {
+    transform: translateY(0.2rem);
+    box-shadow: 0 0.2rem 0.2rem #333;
+  }
+
+  @media only screen and (max-width: 40em) {
+    font-size: 1.8rem;
+    min-width: 8.5rem;
+  }
+
+  @media only screen and (max-width: 30em) {
+    font-size: 1.6rem;
+    min-width: 6.5rem;
+  }
+}
